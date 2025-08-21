@@ -16,7 +16,7 @@ def query_df():
     
     try:
         result = ast.literal_eval(expr)
-        result = df.query(expr, engine="python")
+        result = df.query(expr)
         return result.to_html() 
     except Exception as e:
         return f"Error: {e}"
