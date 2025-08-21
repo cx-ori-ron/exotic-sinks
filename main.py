@@ -13,13 +13,15 @@ df = pd.DataFrame({
 @app.route("/query_pandas")
 def query_df():
     expr = request.args.get("expr", "") 
-    
+    return backend_pandas(expr)
+
+def backend_pandas(expr):
     try:
-        result = ast.literal_eval(expr)
+        #result = ast.literal_eval(expr)
         result = df.query(expr)
         return result.to_html() 
     except Exception as e:
-        return f"Error: {e}"
+        return f"Error: {e}"    
 
 if __name__ == "__main__":
     app.run(debug=True)
