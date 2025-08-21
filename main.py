@@ -1,5 +1,6 @@
 from flask import Flask, request
 import pandas as pd
+import ast
 
 app = Flask(__name__)
 
@@ -12,8 +13,9 @@ df = pd.DataFrame({
 @app.route("/query_pandas")
 def query_df():
     expr = request.args.get("expr", "") 
-
+    
     try:
+        result = ast.literal_eval(expr)
         result = df.query(expr, engine="python")
         return result.to_html() 
     except Exception as e:
